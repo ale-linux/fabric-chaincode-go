@@ -5,6 +5,7 @@ package shim
 
 import (
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/hyperledger/fabric-protos-go/common"
 	"github.com/hyperledger/fabric-protos-go/ledger/queryresult"
 	pb "github.com/hyperledger/fabric-protos-go/peer"
 )
@@ -97,6 +98,10 @@ type ChaincodeStubInterface interface {
 
 	// SetStateValidationParameter sets the key-level endorsement policy for `key`.
 	SetStateValidationParameter(key string, ep []byte) error
+
+	// SetEphemeralPolicy sets the key-level endorsement policy for `key`
+	// with an ephemeral policy.
+	SetEphemeralPolicy(key string, policy *common.SignaturePolicyEnvelope) error
 
 	// GetStateValidationParameter retrieves the key-level endorsement policy
 	// for `key`. Note that this will introduce a read dependency on `key` in

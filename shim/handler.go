@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/golang/protobuf/proto"
+	"github.com/hyperledger/fabric-protos-go/common"
 	pb "github.com/hyperledger/fabric-protos-go/peer"
 )
 
@@ -335,6 +336,38 @@ func (h *Handler) handlePutState(collection string, key string, value []byte, ch
 
 	// Incorrect chaincode message received
 	return fmt.Errorf("[%s] incorrect chaincode message %s received. Expecting %s or %s", shorttxid(responseMsg.Txid), responseMsg.Type, pb.ChaincodeMessage_RESPONSE, pb.ChaincodeMessage_ERROR)
+}
+
+func (h *Handler) handleSetEphemeralPolicy(collection, key string, policy *common.SignaturePolicyEnvelope, channelID string, txID string) error {
+	msg := &pb.ChaincodeMessage{
+		Type: pb.ChaincodeMessage_SET_EPHEMERAL_ENDORSEMENT,
+		Payload: marshalOrPanic(&pb.SetEphemeralPolicy{
+			Collection: collection,
+			Key:        key,
+			Policy:     policy,
+		}),
+		Txid:      txID,
+		ChannelId: channelID,
+	}
+
+	// Execute the request and get response
+	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txID)
+	if err != nil {
+		return fmt.Errorf("[%s] error sending %s: %s", msg.Txid, pb.ChaincodeMessage_SET_EPHEMERAL_ENDORSEMENT, err)
+	}
+
+	if responseMsg.Type == pb.ChaincodeMessage_RESPONSE {
+		// Success response
+		return nil
+	}
+
+	if responseMsg.Type == pb.ChaincodeMessage_ERROR {
+		// Error response
+		return fmt.Errorf("%s", responseMsg.Payload[:])
+	}
+
+	// Incorrect chaincode message received
+	return fmt.Errorf("[%s]incorrect chaincode message %s received. Expecting %s or %s", shorttxid(responseMsg.Txid), responseMsg.Type, pb.ChaincodeMessage_RESPONSE, pb.ChaincodeMessage_ERROR)
 }
 
 func (h *Handler) handlePutStateMetadataEntry(collection string, key string, metakey string, metadata []byte, channelID string, txID string) error {

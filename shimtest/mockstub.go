@@ -19,6 +19,7 @@ import (
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
+	"github.com/hyperledger/fabric-protos-go/common"
 	"github.com/hyperledger/fabric-protos-go/ledger/queryresult"
 	pb "github.com/hyperledger/fabric-protos-go/peer"
 )
@@ -186,6 +187,11 @@ func (stub *MockStub) GetPrivateData(collection string, key string) ([]byte, err
 // GetPrivateDataHash ...
 func (stub *MockStub) GetPrivateDataHash(collection, key string) ([]byte, error) {
 	return nil, errors.New("Not Implemented")
+}
+
+// SetEphemeralPolicy documentation can be found in interfaces.go
+func (stub *MockStub) SetEphemeralPolicy(key string, policy *common.SignaturePolicyEnvelope) error {
+	return errors.New("Not Implemented")
 }
 
 // PutPrivateData ...
