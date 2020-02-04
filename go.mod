@@ -15,4 +15,4 @@ require (
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 )
 
-replace github.com/hyperledger/fabric-protos-go v0.0.0-20190919234611-2a87503ac7c9 => github.com/ale-linux/fabric-protos-go 1bc65e21484
+replace github.com/hyperledger/fabric-protos-go v0.0.0-20190919234611-2a87503ac7c9 => github.com/ale-linux/fabric-protos-go v0.0.0-20200204095939-1bc65e214847
