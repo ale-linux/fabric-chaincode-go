@@ -165,9 +165,9 @@ func (s *ChaincodeStub) GetState(key string) ([]byte, error) {
 	return s.handler.handleGetState(collection, key, s.ChannelID, s.TxID)
 }
 
-// SetEphemeralPolicy documentation can be found in interfaces.go
-func (s *ChaincodeStub) SetEphemeralPolicy(key string, policy *common.SignaturePolicyEnvelope) error {
-	return s.handler.handleSetEphemeralPolicy("", key, policy, s.ChannelID, s.TxID)
+// EphemeralPolicy documentation can be found in interfaces.go
+func (s *ChaincodeStub) EphemeralPolicy(policy *common.SignaturePolicyEnvelope) ([]byte, error) {
+	return s.handler.handleEphemeralPolicy(policy, s.ChannelID, s.TxID)
 }
 
 // SetStateValidationParameter documentation can be found in interfaces.go

@@ -189,9 +189,9 @@ func (stub *MockStub) GetPrivateDataHash(collection, key string) ([]byte, error)
 	return nil, errors.New("Not Implemented")
 }
 
-// SetEphemeralPolicy documentation can be found in interfaces.go
-func (stub *MockStub) SetEphemeralPolicy(key string, policy *common.SignaturePolicyEnvelope) error {
-	return errors.New("Not Implemented")
+// EphemeralPolicy documentation can be found in interfaces.go
+func (stub *MockStub) EphemeralPolicy(policy *common.SignaturePolicyEnvelope) ([]byte, error) {
+	return nil, errors.New("Not Implemented")
 }
 
 // PutPrivateData ...

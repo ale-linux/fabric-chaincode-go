@@ -338,13 +338,11 @@ func (h *Handler) handlePutState(collection string, key string, value []byte, ch
 	return fmt.Errorf("[%s] incorrect chaincode message %s received. Expecting %s or %s", shorttxid(responseMsg.Txid), responseMsg.Type, pb.ChaincodeMessage_RESPONSE, pb.ChaincodeMessage_ERROR)
 }
 
-func (h *Handler) handleSetEphemeralPolicy(collection, key string, policy *common.SignaturePolicyEnvelope, channelID string, txID string) error {
+func (h *Handler) handleEphemeralPolicy(policy *common.SignaturePolicyEnvelope, channelID string, txID string) ([]byte, error) {
 	msg := &pb.ChaincodeMessage{
-		Type: pb.ChaincodeMessage_SET_EPHEMERAL_ENDORSEMENT,
-		Payload: marshalOrPanic(&pb.SetEphemeralPolicy{
-			Collection: collection,
-			Key:        key,
-			Policy:     policy,
+		Type: pb.ChaincodeMessage_GET_EPHEMERAL_POLICY,
+		Payload: marshalOrPanic(&pb.GetEphemeralPolicy{
+			Policy: policy,
 		}),
 		Txid:      txID,
 		ChannelId: channelID,
@@ -353,21 +351,21 @@ func (h *Handler) handleSetEphemeralPolicy(collection, key string, policy *commo
 	// Execute the request and get response
 	responseMsg, err := h.callPeerWithChaincodeMsg(msg, channelID, txID)
 	if err != nil {
-		return fmt.Errorf("[%s] error sending %s: %s", msg.Txid, pb.ChaincodeMessage_SET_EPHEMERAL_ENDORSEMENT, err)
+		return nil, fmt.Errorf("[%s] error sending %s: %s", msg.Txid, pb.ChaincodeMessage_GET_EPHEMERAL_POLICY, err)
 	}
 
 	if responseMsg.Type == pb.ChaincodeMessage_RESPONSE {
 		// Success response
-		return nil
+		return responseMsg.Payload, nil
 	}
 
 	if responseMsg.Type == pb.ChaincodeMessage_ERROR {
 		// Error response
-		return fmt.Errorf("%s", responseMsg.Payload[:])
+		return nil, fmt.Errorf("%s", responseMsg.Payload[:])
 	}
 
 	// Incorrect chaincode message received
-	return fmt.Errorf("[%s]incorrect chaincode message %s received. Expecting %s or %s", shorttxid(responseMsg.Txid), responseMsg.Type, pb.ChaincodeMessage_RESPONSE, pb.ChaincodeMessage_ERROR)
+	return nil, fmt.Errorf("[%s]incorrect chaincode message %s received. Expecting %s or %s", shorttxid(responseMsg.Txid), responseMsg.Type, pb.ChaincodeMessage_RESPONSE, pb.ChaincodeMessage_ERROR)
 }
 
 func (h *Handler) handlePutStateMetadataEntry(collection string, key string, metakey string, metadata []byte, channelID string, txID string) error {

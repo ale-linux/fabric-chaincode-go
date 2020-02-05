@@ -99,9 +99,9 @@ type ChaincodeStubInterface interface {
 	// SetStateValidationParameter sets the key-level endorsement policy for `key`.
 	SetStateValidationParameter(key string, ep []byte) error
 
-	// SetEphemeralPolicy sets the key-level endorsement policy for `key`
-	// with an ephemeral policy.
-	SetEphemeralPolicy(key string, policy *common.SignaturePolicyEnvelope) error
+	// EphemeralPolicy requests the translation of the provided policy into
+	// its ephemeral version.
+	EphemeralPolicy(policy *common.SignaturePolicyEnvelope) ([]byte, error)
 
 	// GetStateValidationParameter retrieves the key-level endorsement policy
 	// for `key`. Note that this will introduce a read dependency on `key` in
