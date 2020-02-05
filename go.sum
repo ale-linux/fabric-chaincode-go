@@ -1,8 +1,8 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/ale-linux/fabric-protos-go v0.0.0-20200204095939-1bc65e214847 h1:y+wR8W0r65AwtEycTuNXU++V6elp/NRnb4/EP3PrMqw=
-github.com/ale-linux/fabric-protos-go v0.0.0-20200204095939-1bc65e214847/go.mod h1:xVYTjK4DtZRBxZ2D9aE4y6AbLaPwue2o/criQyQbVD0=
+github.com/ale-linux/fabric-protos-go v0.0.0-20200205093610-17857c813f20 h1:pNOIDVgeKzkH5xbkx2h7vIFtX7BT8HMjQriKGTg6CCc=
+github.com/ale-linux/fabric-protos-go v0.0.0-20200205093610-17857c813f20/go.mod h1:xVYTjK4DtZRBxZ2D9aE4y6AbLaPwue2o/criQyQbVD0=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
